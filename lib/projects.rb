@@ -2,12 +2,13 @@ require 'open-uri'
 
 class Projects
 	def self.fetch_trending
-		categories = Category.all
-		categories.each do |category|
-			if category.users.count > 0
-				self.fetch_projects(category)
-			end
-		end
+		self.send_updates
+		# categories = Category.all
+		# categories.each do |category|
+		# 	if category.users.count > 0
+		# 		self.fetch_projects(category)
+		# 	end
+		# end
 	end
 
 	def self.fetch_projects(category)
@@ -34,6 +35,11 @@ class Projects
 				p project.url
 			end
 		end
+	end
+
+	def self.send_updates
+		users = User.where(:active => true, :verified => true)
+		DailyMailer.top5(users.first).deliver
 	end
 end
 

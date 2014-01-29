@@ -156,7 +156,7 @@ body, td { font-family: HelveticaNeue, sans-serif; }
             <td class="w580" width="580">
                 <repeater>
                 <p class="category_header"><%= @category.name %></p>
-                <% @category.projects.order('stargazers desc').limit(5).each_with_index do |project, index| %>
+                <% @category.projects.limit(5).each_with_index do |project, index| %>
                     <layout label="Text only">
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
@@ -188,6 +188,47 @@ body, td { font-family: HelveticaNeue, sans-serif; }
         </tr>
     </tbody></table>
 </td></tr>
+
+
+<!-- Start -->
+                <tr id="gallery-content-row"><td class="w640" width="640" bgcolor="#fff">
+    <table class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
+        <tbody><tr>
+            <td class="w30" width="30"></td>
+            <td class="w580" width="580">
+                <repeater>
+                <p class="category_header"><%= @category.name %></p>
+                <% @category.projects.limit(5).each_with_index do |project, index| %>
+                    <layout label="Text only">
+                        <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
+                            <tbody><tr>
+                                <td class="w580" width="580">
+                                    <p align="left" class="article-title"><singleline label="Title"><%= link_to (index + 1).to_s + '. ' + project.name, project.url %> by <%= link_to project.created_by, "http://www.github.com/" + project.created_by %></singleline></p>
+                                    <div align="left" class="article-content">
+                                        <multiline label="Description">
+                                            <% if project.description.size > 0 %>
+                                                <%= project.description %>
+                                            <% else %>
+                                                No Description
+                                            <% end %>
+                                        </multiline>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td class="w580" width="580" height="10"></td></tr>
+                        </tbody></table>
+                    </layout>
+                <% end %>               
+                    
+                                      
+                </repeater>
+            </td>
+            
+            <td class="w30" width="30"></td>
+        </tr>
+    </tbody></table>
+</td></tr>
+<!-- End -->
 
                 <tr><td class="w640" width="640" height="15" bgcolor="#fcfcfc"></td></tr>
                 

@@ -1,7 +1,9 @@
-<%= form_tag "" do %>
-	<select id="select-category" name="category[]" multiple="multiple" class="selectized" style="width: 70%; display: none;" placeholder="Select a categories" tabindex="-1">
+<%= form_tag subscriptions_path, :method => :post, :remote => :false do %>
+	<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 70%; display: none;" placeholder="Select a categories" tabindex="-1">
 		<%= options_from_collection_for_select(Category.all, :id, :name) %>
 	</select>
+	<%= text_field_tag :email, "", :placeholder => "Your email address" %>
+	<%= submit_tag %>
 <% end %>
 
 <script type="text/javascript">

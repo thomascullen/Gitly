@@ -36,11 +36,13 @@ ActiveRecord::Schema.define(version: 20140129095216) do
 
   create_table "users", force: true do |t|
     t.string   "email"
-    t.boolean  "verified"
-    t.boolean  "active"
+    t.boolean  "verified",   default: false
+    t.boolean  "active",     default: false
     t.string   "auth_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end

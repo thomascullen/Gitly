@@ -7,6 +7,8 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :watchers
       t.integer :stargazers
       t.integer :github_id
+      t.string :created_by
+      t.string :avatar_url
       t.belongs_to :category
 
       t.timestamps

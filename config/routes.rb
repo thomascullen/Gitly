@@ -3,6 +3,8 @@ Gitly::Application.routes.draw do
   resources :projects
 
   resources :subscriptions
+
+  resources :categories
   
   get 'validate/:auth_token' => "users#validate"
   get 'unsubscribe/:auth_token' => "users#unsubscribe"

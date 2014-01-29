@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20140129164850) do
     t.integer  "watchers"
     t.integer  "stargazers"
     t.integer  "github_id"
+    t.string   "created_by"
+    t.string   "avatar_url"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"

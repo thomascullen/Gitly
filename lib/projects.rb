@@ -23,7 +23,9 @@ class Projects
 					:description => item['description'],
 					:stargazers => item['stargazers_count'],
 					:watchers => item['watchers_count'],
-					:github_id => item['id']
+					:github_id => item['id'],
+					:created_by => item['owner']['login'],
+					:avatar_url => item['owner']['avatar_url']
 				).first_or_create
 
 				category.projects << project unless category.projects.include?(project)

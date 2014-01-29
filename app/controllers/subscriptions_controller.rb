@@ -14,9 +14,7 @@ class SubscriptionsController < ApplicationController
 			end
 		end
 
-		
 		send_activation_mail(@user) if !@user.active
-
 	end
 
 	private

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  verified: false
+  active: false
+  auth_token: MyString
+
+two:
+  email: MyString
+  verified: false
+  active: false
+  auth_token: MyString

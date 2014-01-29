@@ -1,1 +1,11 @@
-New
+<%= form_tag "" do %>
+	<select id="select-category" name="category[]" multiple="multiple" class="selectized" style="width: 70%; display: none;" placeholder="Select a categories" tabindex="-1">
+		<%= options_from_collection_for_select(Category.all, :id, :name) %>
+	</select>
+<% end %>
+
+<script type="text/javascript">
+	$('#select-category').selectize({
+    maxItems: 3
+	});
+</script>

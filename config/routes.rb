@@ -1,9 +1,9 @@
 Gitly::Application.routes.draw do
+  
   resources :subscriptions
-
-  resources :categories
-
-  resources :users
+  
+  get 'validate/:auth_token' => "users#validate"
+  get 'unsubscribe/:auth_token' => "users#unsubscribe"
 
   root 'subscriptions#new'
 

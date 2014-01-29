@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
 	end
 
 	def create
-		@user = User.find_by_email(params[:email]) || User.create(:email => params[:email])
+		@user = User.find_by_email(params[:email]) || User.create(:email => params[:email], :auth_token => SecureRandom.hex(32))
 		
 		if @user
 			params[:categories].each do |selected_category_id|
@@ -20,5 +20,6 @@ class SubscriptionsController < ApplicationController
 	private
 	def send_activation_mail(user)
 		logger.warn "Send activation email to #{user.email}"
+		UserMailer.validate_user(user).deliver
 	end
 end

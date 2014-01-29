@@ -5,12 +5,16 @@
 		<p class="introduction">Daily emails of what's <strong>trending</strong> on Github for the <strong>lanugages</strong> you're interested in.</p>
 	</div>
 
+	<div class="errors">
+		<p id="error_message">Error</p>
+	</div>
+
 	<div id="new_sub">
-		<%= form_tag subscriptions_path, :method => :post, :remote => :false do %>
+		<%= form_tag subscriptions_path, :method => :post, :remote => :false, :id => "new_sub_form" do %>
 			<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 100%; display: none;" placeholder="What languages are you interested in?" tabindex="-1">
 				<%= options_from_collection_for_select(Category.all, :id, :name) %>
 			</select>
-			<%= text_field_tag :email, "", :placeholder => "Your email address", :class => "selectize-input" %><br />
+			<%= text_field_tag :email, "", :placeholder => "Your email address", :class => "selectize-input", :id => "email" %><br />
 			<%= submit_tag "Subscribe", :class => "button" %>
 		<% end %>
 	</div>
@@ -24,7 +28,36 @@
 
 
 <script type="text/javascript">
-	$('#select-category').selectize({
-    maxItems: 3
+	$('#select-category').selectize();
+
+
+	// Validation
+	// We need to ensure more than one language selected
+	// and a valid email
+
+	$(".errors").hide();
+
+	function IsEmail(email) {
+	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return regex.test(email);
+	}
+
+	$( "#new_sub_form	" ).submit(function( event ) {
+		$(".errors").show();
+		if ( IsEmail($( "#email" ).val())) {
+
+			var selectedValues = $('#select-category').val();
+			if (selectedValues) {
+				$("#error_message").text("Saving...");
+			} else {
+				$("#error_message").text("Please select at least one language.");
+				return false;
+			}
+		} else {
+			$("#error_message").text("Please use a valid email address.");
+			return false;
+		}
 	});
+
+
 </script>

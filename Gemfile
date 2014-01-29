@@ -39,6 +39,8 @@ gem 'unicorn'
 
 gem "selectize-rails"
 
+gem 'httparty'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

@@ -1,5 +1,7 @@
 Gitly::Application.routes.draw do
   
+  resources :projects
+
   resources :subscriptions
   
   get 'validate/:auth_token' => "users#validate"

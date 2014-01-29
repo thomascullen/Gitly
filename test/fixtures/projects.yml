@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  url: MyString
+  description: MyText
+  watchers: 1
+  stargazers: 1
+
+two:
+  name: MyString
+  url: MyString
+  description: MyText
+  watchers: 1
+  stargazers: 1

@@ -1,5 +1,5 @@
 require 'projects'
 
-task :send_daily_email => :environment do
+task :fetch_trending => :environment do
   Projects.fetch_trending
 end

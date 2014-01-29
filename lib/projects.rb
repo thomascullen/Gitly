@@ -2,26 +2,43 @@ require 'open-uri'
 
 class Projects
 	def self.fetch_trending
-		categories = Category.where(:name => 'Ruby')
+		categories = Category.all
 		categories.each do |category|
-			self.fetch_projects(category)
+			if category.users.count > 0
+				self.fetch_projects(category)
+			end
 		end
 	end
 
 	def self.fetch_projects(category)
-		#puts "Fetching for #{category.name} for #{Date.yesterday}"
-		projects = HTTParty.get(URI.encode('https://api.github.com/search/repositories?language:' + category.github_short + '&sort=stars&order=desc&q=created:>' + Date.yesterday.to_s), :headers => {"User-Agent" => "Gitly"})
-		projects['items'].each do |item|
-			p item
-			break
+		uri = URI.encode('https://api.github.com/search/repositories?q=language:' + category.github_short + ' created:>' +  1.week.ago.strftime("%Y-%m-%d") + '&sort=stars&order=desc')
+		puts "URL: #{uri}"
+
+		projects = HTTParty.get(uri, :headers => {"User-Agent" => "Gitly"})
+		if projects['items'] && projects['items'].count > 0
+			projects['items'].each do |item|
+				project = Project.where(
+					:name => item['name'],
+					:url => item['html_url'],
+					:description => item['description'],
+					:stargazers => item['stargazers_count'],
+					:watchers => item['watchers_count'],
+					:github_id => item['id']
+				).first_or_create
+
+				category.projects << project unless category.projects.include?(project)
+
+				p "Saved project #{project.name} to #{category.name} under language #{item['language']}"
+				p project.url
+			end
 		end
 	end
 end
 
-# https://api.github.com/search/repositories?language:Objective-C&sort=stars&order=desc&q=created:>2014-01-21
+# https://api.github.com/search/repositories?language:Ruby&sort=stars&order=desc&q=created:>2014-01-28
 
 # curl -G https://api.github.com/search/repositories       \
-#     --data-urlencode "q=created:>`date -v-7d '+%Y-%m-%d'`" \
+#     --data-urlencode "q=language:Ruby created:>`date -v-1d '+%Y-%m-%d'`" \
 #     --data-urlencode "sort=stars"                          \
 #     --data-urlencode "order=desc"                          \
 #     -H "Accept: application/vnd.github.preview"            \

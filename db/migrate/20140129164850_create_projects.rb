@@ -6,9 +6,12 @@ class CreateProjects < ActiveRecord::Migration
       t.text :description
       t.integer :watchers
       t.integer :stargazers
+      t.integer :github_id
       t.belongs_to :category
 
       t.timestamps
     end
+
+    add_index :projects, :github_id, :unique => true
   end
 end

@@ -1,10 +1,27 @@
-<%= form_tag subscriptions_path, :method => :post, :remote => :false do %>
-	<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 70%; display: none;" placeholder="Select a categories" tabindex="-1">
-		<%= options_from_collection_for_select(Category.all, :id, :name) %>
-	</select>
-	<%= text_field_tag :email, "", :placeholder => "Your email address" %>
-	<%= submit_tag %>
-<% end %>
+
+<div class="container">
+	<div class="logo">
+		<h1>Gitly</h1>
+		<p class="introduction">Daily emails of what's <strong>trending</strong> on Github for the <strong>lanugages</strong> you're interested in.</p>
+	</div>
+
+	<div id="new_sub">
+		<%= form_tag subscriptions_path, :method => :post, :remote => :false do %>
+			<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 100%; display: none;" placeholder="What languages are you interested in?" tabindex="-1">
+				<%= options_from_collection_for_select(Category.all, :id, :name) %>
+			</select>
+			<%= text_field_tag :email, "", :placeholder => "Your email address", :class => "selectize-input" %><br />
+			<%= submit_tag "Subscribe", :class => "button" %>
+		<% end %>
+	</div>
+
+	<div class="promises">
+		<p>We promise <strong>never</strong> to share your email or details with anyone.</p>
+		<p>Built with love by <a href="http://www.bkenny.com">bkenny</a> in Dublin, Ireland.</p>
+	</div>
+</div>
+
+
 
 <script type="text/javascript">
 	$('#select-category').selectize({

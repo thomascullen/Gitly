@@ -32,6 +32,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# Unicorn
+# http://rubygems.org/gems/unicorn
+# Used for multiple web processes from one heroku dyno
+gem 'unicorn'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

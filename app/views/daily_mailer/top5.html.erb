@@ -207,7 +207,7 @@ body, td { font-family: HelveticaNeue, sans-serif; }
             <td class="w30" width="30"></td>
             <td class="w580" width="360" valign="top">
             <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"><span>Build &amp; Ship.</span></p></span>
-            <p align="left" class="footer-content-left"><preferences lang="en">Edit your subscription</preferences> | <unsubscribe>Unsubscribe</unsubscribe></p>
+            <p align="left" class="footer-content-left"><unsubscribe><a href="<%= root_url %>unsubscribe/<%= @user.auth_token %>">Unsubscribe</a> - We'll never email you again, promise.</unsubscribe></p>
             </td>
             <td class="hide w0" width="60"></td>
             <td class="hide w0" width="160" valign="top">

@@ -10,7 +10,7 @@
 
 	<div id="new_sub">
 		<%= form_tag subscriptions_path, :method => :post, :remote => :false, :id => "new_sub_form" do %>
-			<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 100%; display: none;" placeholder="What languages are you interested in?" tabindex="-1">
+			<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 100%; display: none;" placeholder="What languages are you interested in? (e.g. Ruby, Objective-C)" tabindex="-1">
 				<%= options_from_collection_for_select(Category.all, :id, :name) %>
 			</select>
 			<%= text_field_tag :email, "", :placeholder => "Your email address", :class => "selectize-input", :id => "email" %><br />

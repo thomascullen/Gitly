@@ -66,6 +66,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+input, textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
 
 a{
 	text-decoration: none;

@@ -167,4 +167,6 @@ strong {
 .errors p {
 	color: white;
 	padding:5px 0;
+	text-align: center;
+	line-height: 22px;
 }

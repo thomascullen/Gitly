@@ -6,32 +6,32 @@ class Projects
 		categories.each do |category|
 			if category.users.count > 0
 				self.fetch_projects(category)
-				sleep(20.0)
 			end
 		end
 	end
 
 	def self.fetch_projects(category)
-		uri = URI.encode('https://api.github.com/search/repositories?q=language:' + category.github_short + ' created:>' +  1.week.ago.strftime("%Y-%m-%d") + '&sort=stars&order=desc&client_id=' + ENV['GITHUB_CLIENT'] + '&client_secret=' + ENV['GITHUB_SECRET'])
+		uri = URI.encode('https://api.github.com/search/repositories?q=language:' + category.github_short + ' created:>' +  2.days.ago.strftime("%Y-%m-%d") + '&sort=stars&order=desc&client_id=' + ENV['GITHUB_CLIENT'] + '&client_secret=' + ENV['GITHUB_SECRET'])
 		puts "URL: #{uri}"
 
 		projects = HTTParty.get(uri, :headers => {"User-Agent" => "Gitly"})
 		if projects['items'] && projects['items'].count > 0
 			projects['items'].each do |item|
-				project = Project.where(
-					:name => item['name'],
-					:url => item['html_url'],
-					:description => item['description'],
-					:stargazers => item['stargazers_count'],
-					:watchers => item['watchers_count'],
-					:github_id => item['id'],
-					:created_by => item['owner']['login'],
-					:avatar_url => item['owner']['avatar_url']
-				).first_or_create
+				project = Project.where(:github_id => item['id']).first_or_create
+
+				project.name = item['name']
+				project.url = item['html_url']
+				project.description = item['description']
+				project.stargazers = item['stargazers_count']
+				project.watchers = item['watchers_count']
+				project.github_id = item['id']
+				project.created_by = item['owner']['login']
+				project.avatar_url = item['owner']['avatar_url']
+				project.save
 
 				category.projects << project unless category.projects.include?(project)
 
-				p "Saved project #{project.name} to #{category.name} under language #{item['language']}"
+				p "Saved project #{project.name} to #{category.name} under language #{item['language']} for GitHub id #{project.github_id}"
 				p project.url
 			end
 		end

@@ -149,45 +149,54 @@ body, td { font-family: HelveticaNeue, sans-serif; }
                 </tr>
                 
                 
-                <tr id="gallery-content-row"><td class="w640" width="640" bgcolor="#fff">
-    <table class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
-        <tbody><tr>
-            <td class="w30" width="30"></td>
-            <td class="w580" width="580">
-                <repeater>
-                <p class="category_header"><%= @category.name %></p>
-                <% @category.projects.order('stargazers desc').limit(5).each_with_index do |project, index| %>
-                    <layout label="Text only">
-                        <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
-                            <tbody><tr>
-                                <td class="w580" width="580">
-                                    <p align="left" class="article-title"><singleline label="Title"><%= link_to (index + 1).to_s + '. ' + project.name, project.url %> <span style="color:#c2c2c2">by</span> <%= link_to project.created_by, "http://www.github.com/" + project.created_by %></singleline></p>
-                                    <div align="left" class="article-content">
-                                        <multiline label="Description">
-                                            
-                                            <% if project.description.size > 0 %>
-                                                <%= project.description %><br />
-                                            <% else %>
-                                                No Description<br />
-                                            <% end %>
-                                            <b><%= project.stargazers %> Stargazers</b>
-                                        </multiline>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr><td class="w580" width="580" height="10"></td></tr>
-                        </tbody></table>
-                    </layout>
-                <% end %>               
-                    
-                                      
-                </repeater>
-            </td>
 
-            <td class="w30" width="30"></td>
-        </tr>
-    </tbody></table>
-</td></tr>
+<% @user = User.first %>
+<% @user.categories.each do |category| %>
+    <% if category.projects.where("updated_at > ?", 1.day.ago).count > 0 %>
+
+        <tr id="gallery-content-row"><td class="w640" width="640" bgcolor="#fff">
+        <table class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
+            <tbody><tr>
+                <td class="w30" width="30"></td>
+                <td class="w580" width="580">
+                    <repeater>
+                    <p class="category_header"><%= category.name %></p>
+                    <% category.projects.where("updated_at > ?", 1.day.ago).order('stargazers desc').limit(5).each_with_index do |project, index| %>
+                        <layout label="Text only">
+                            <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
+                                <tbody><tr>
+                                    <td class="w580" width="580">
+                                        <p align="left" class="article-title"><singleline label="Title"><%= link_to (index + 1).to_s + '. ' + project.name, project.url %> <span style="color:#c2c2c2">by</span> <%= link_to project.created_by, "http://www.github.com/" + project.created_by %></singleline></p>
+                                        <div align="left" class="article-content">
+                                            <multiline label="Description">
+                                                
+                                                <% if project.description.size > 0 %>
+                                                    <%= project.description %><br />
+                                                <% else %>
+                                                    No Description<br />
+                                                <% end %>
+                                                <b><%= project.stargazers %> Stargazers &bull; <%= link_to "View repository", project.url %></b>
+                                            </multiline>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><td class="w580" width="580" height="10"></td></tr>
+                            </tbody></table>
+                        </layout>
+                    <% end %>               
+                        
+                                          
+                    </repeater>
+                </td>
+
+                <td class="w30" width="30"></td>
+            </tr>
+        </tbody></table>
+        </td></tr>
+
+    <% end %>
+<% end %>
+
 
                 <tr><td class="w640" width="640" height="15" bgcolor="#fcfcfc"></td></tr>
                 

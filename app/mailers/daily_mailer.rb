@@ -5,8 +5,6 @@ class DailyMailer < ActionMailer::Base
   def top5(user)
   	@user = user
   	@category = Category.find_by_name("Objective-C")
-  	mail(to: @user.email, subject: "You're daily dose of trending repos")
+  	mail(to: @user.email, subject: "You're daily dose of trending repos over the last 7 days")
   end
-
-
 end

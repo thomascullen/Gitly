@@ -2,13 +2,12 @@ require 'open-uri'
 
 class Projects
 	def self.fetch_trending
-		self.send_updates
-		# categories = Category.all
-		# categories.each do |category|
-		# 	if category.users.count > 0
-		# 		self.fetch_projects(category)
-		# 	end
-		# end
+		categories = Category.all
+		categories.each do |category|
+			if category.users.count > 0
+				self.fetch_projects(category)
+			end
+		end
 	end
 
 	def self.fetch_projects(category)
@@ -38,19 +37,19 @@ class Projects
 	end
 
 	def self.send_updates
+		puts "Sending the mails..."
+
 		users = User.where(:active => true, :verified => true)
-		DailyMailer.top5(users.first).deliver
+		users.each do |user|
+
+			count = 0
+			user.categories.each {|category| count = count + category.projects.count}
+			if count > 0
+				puts "Sending mail to #{user.email}"
+				DailyMailer.top5(user).deliver
+			else
+				puts "No projects to send"
+			end
+		end
 	end
 end
-
-# https://api.github.com/search/repositories?language:Ruby&sort=stars&order=desc&q=created:>2014-01-28
-
-# curl -G https://api.github.com/search/repositories       \
-#     --data-urlencode "q=language:Ruby created:>`date -v-1d '+%Y-%m-%d'`" \
-#     --data-urlencode "sort=stars"                          \
-#     --data-urlencode "order=desc"                          \
-#     -H "Accept: application/vnd.github.preview"            \
-#     | jq ".items[0,1,2] | {name, description, language, watchers_count, html_url}"
-
-
-# curl https://api.github.com/search/repositories?q=language:ActionScript&sort=stars&order=desc

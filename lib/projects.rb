@@ -12,7 +12,7 @@ class Projects
 	end
 
 	def self.fetch_projects(category)
-		uri = URI.encode('https://api.github.com/search/repositories?q=language:' + category.github_short + ' created:>' +  1.week.ago.strftime("%Y-%m-%d") + '&sort=stars&order=desc')
+		uri = URI.encode('https://api.github.com/search/repositories?q=language:' + category.github_short + ' created:>' +  1.week.ago.strftime("%Y-%m-%d") + '&sort=stars&order=desc&client_id=' + ENV['GITHUB_CLIENT'] + '&client_secret=' + ENV['GITHUB_SECRET'])
 		puts "URL: #{uri}"
 
 		projects = HTTParty.get(uri, :headers => {"User-Agent" => "Gitly"})

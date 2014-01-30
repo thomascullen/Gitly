@@ -168,12 +168,7 @@ body, td { font-family: HelveticaNeue, sans-serif; }
                                         <p align="left" class="article-title"><singleline label="Title"><%= link_to (index + 1).to_s + '. ' + project.name, project.url %> <span style="color:#c2c2c2">by</span> <%= link_to project.created_by, "http://www.github.com/" + project.created_by %></singleline></p>
                                         <div align="left" class="article-content">
                                             <multiline label="Description">
-                                                
-                                                <% if project.description.size > 0 %>
-                                                    <%= project.description %><br />
-                                                <% else %>
-                                                    No Description<br />
-                                                <% end %>
+																								<%= project.description %><br />
                                                 <b><%= project.stargazers %> Stargazers &bull; <%= link_to "View repository", project.url %></b>
                                             </multiline>
                                         </div>

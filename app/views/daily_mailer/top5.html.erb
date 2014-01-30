@@ -34,11 +34,13 @@ p[class=footer-content-left] { text-align: center !important; }
 .header-content, .footer-content-left {-webkit-text-size-adjust: 80% !important; -ms-text-size-adjust: 80% !important;}
 img { height: auto; line-height: 100%;}
  } 
+
 /* Client-specific Styles */
 #outlook a { padding: 0; }  /* Force Outlook to provide a "view in browser" button. */
 body { width: 100% !important; }
 .ReadMsgBody { width: 100%; }
 .ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+
 /* Reset Styles */
 /* Add 100px so mobile switch bar doesn't cover street address. */
 body { background-color: #ececec; margin: 0; padding: 0; }
@@ -67,31 +69,8 @@ code {
 /* Fonts and Content */
 body, td { font-family: HelveticaNeue, sans-serif; }
 .header-content, .footer-content-left, .footer-content-right { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
-/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
-.header-content { font-size: 12px; color: #ffffff; }
-.header-content a { font-weight: bold; color: #ffffff; text-decoration: none; }
-.category_header {color:#3498DB; font-weight: bold; font-size: 28px; margin:0 0 20px 0;}
-#headline p { color: #3498db; font-family: HelveticaNeue, sans-serif; font-size: 48px; text-align: center; margin-top:0px; margin-bottom:30px; }
-#headline p a { color: #3498db; text-decoration: none; }
-.article-title { font-size: 18px; line-height:24px; color: #79c0f0; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: HelveticaNeue, sans-serif; }
-.article-title a { color: #79c0f0; text-decoration: none; }
-.article-title.with-meta {margin-bottom: 0;}
-.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
-.article-content { font-size: 13px; line-height: 18px; color: #858585; margin-top: 0px; margin-bottom: 18px; font-family: HelveticaNeue, sans-serif; }
-.article-content a { color: #3498DB; font-weight:bold; text-decoration:none; }
-.article-content img { max-width: 100% }
-.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
-.article-content li { font-size: 13px; line-height: 18px; color: #858585; }
-.article-content li a { color: #3498DB; text-decoration:underline; }
-.article-content p {margin-bottom: 15px;}
-.footer-content-left { font-size: 12px; line-height: 15px; color: #ffffff; margin-top: 0px; margin-bottom: 15px; }
-.footer-content-left a { color: #ffffff; font-weight: bold; text-decoration: none; }
-.footer-content-right { font-size: 11px; line-height: 16px; color: #ffffff; margin-top: 0px; margin-bottom: 15px; }
-.footer-content-right a { color: #ffffff; font-weight: bold; text-decoration: none; }
-#footer { background-color: #3498DB; color: #ffffff; }
-#footer a { color: #ffffff; text-decoration: none; font-weight: bold; }
-#permission-reminder { white-space: normal; }
-#street-address { color: #FFFFFF; white-space: normal; }
+
+
 </style>
 <!--[if gte mso 9]>
 <style _tmplitem="1468" >
@@ -152,24 +131,31 @@ body, td { font-family: HelveticaNeue, sans-serif; }
 
 <% @user.categories.each do |category| %>
     <% if category.projects.where("updated_at > ?", 1.day.ago).count > 0 %>
-
-        <tr id="gallery-content-row"><td class="w640" width="640" bgcolor="#fff">
+        <tr id="gallery-content-row"><td class="w640" width="640" bgcolor="#ffffff">
         <table class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
             <tbody><tr>
                 <td class="w30" width="30"></td>
                 <td class="w580" width="580">
                     <repeater>
-                    <p class="category_header"><%= category.name %></p>
-                    <% category.projects.where("updated_at > ?", 1.day.ago).order('stargazers desc').limit(5).each_with_index do |project, index| %>
+                    </repeater><p style="color:#3498DB; font-weight: bold; font-size: 28px; margin:0 0 20px 0;"><%= category.name %></p>
+                        <% category.projects.where("updated_at > ?", 1.day.ago).order('stargazers desc').limit(5).each_with_index do |project, index| %>
                         <layout label="Text only">
                             <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                                 <tbody><tr>
                                     <td class="w580" width="580">
-                                        <p align="left" class="article-title"><singleline label="Title"><%= link_to (index + 1).to_s + '. ' + project.name, project.url %> <span style="color:#c2c2c2">by</span> <%= link_to project.created_by, "http://www.github.com/" + project.created_by %></singleline></p>
-                                        <div align="left" class="article-content">
+                                        <p align="left" style="font-size: 18px; line-height:24px; color: #79c0f0; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: HelveticaNeue, sans-serif;"><singleline label="Title">
+
+                                            <%= link_to (index + 1).to_s + '. ' + project.name, project.url, :style => "color: #79c0f0; text-decoration: none;" %>
+
+                                         <span style="color:#c2c2c2">by</span> 
+
+                                         <%= link_to project.created_by, "http://www.github.com/" + project.created_by, :style => "color: #79c0f0; text-decoration: none;" %>
+
+                                        </singleline></p>
+                                        <div align="left" style="font-size: 13px; line-height: 18px; color: #858585; margin-top: 0px; margin-bottom: 18px; font-family: HelveticaNeue, sans-serif;">
                                             <multiline label="Description">
-																								<%= project.description %><br />
-                                                <b><%= project.stargazers %> Stargazers &bull; <%= link_to "View repository", project.url %></b>
+                                                                                                <%= project.description %><br>
+                                                <b><%= project.stargazers %> Stargazers &bull; <a href="<%= project.url %>" style="color: #3498DB; font-weight:bold; text-decoration:none;">View Repository</a></b>
                                             </multiline>
                                         </div>
                                     </td>
@@ -177,10 +163,7 @@ body, td { font-family: HelveticaNeue, sans-serif; }
                                 <tr><td class="w580" width="580" height="10"></td></tr>
                             </tbody></table>
                         </layout>
-                    <% end %>               
-                        
-                                          
-                    </repeater>
+                        <% end %>
                 </td>
 
                 <td class="w30" width="30"></td>
@@ -192,6 +175,7 @@ body, td { font-family: HelveticaNeue, sans-serif; }
 <% end %>
 
 
+
                 <tr><td class="w640" width="640" height="15" bgcolor="#fcfcfc"></td></tr>
                 
                 <tr>
@@ -201,8 +185,8 @@ body, td { font-family: HelveticaNeue, sans-serif; }
         <tr>
             <td class="w30" width="30"></td>
             <td class="w580" width="360" valign="top">
-            <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"><span>Build &amp; Ship.</span></p></span>
-            <p align="left" class="footer-content-left"><unsubscribe><a href="<%= root_url %>unsubscribe/<%= @user.auth_token %>">Unsubscribe</a> - We'll never email you again, promise.</unsubscribe></p>
+            <span class="hide"><p id="permission-reminder" align="left" style="font-size: 12px; line-height: 15px; color: #ffffff; margin-top: 0px; margin-bottom: 15px;"><span>Build &amp; Ship.</span></p></span>
+            <p align="left" style="font-size: 12px; line-height: 15px; color: #ffffff; margin-top: 0px; margin-bottom: 15px;"><unsubscribe><a href="<%= root_url %>unsubscribe/<%= @user.auth_token %>" style="color: #ffffff; text-decoration: none; font-weight: bold;">Unsubscribe</a> - We'll never email you again, promise.</unsubscribe></p>
             </td>
             <td class="hide w0" width="60"></td>
             <td class="hide w0" width="160" valign="top">

@@ -42,7 +42,10 @@ class Projects
 	def self.send_updates
 		users = User.where(:active => true, :verified => true)
 		users.each do |user|
-			if user.has_updates?
+			
+			count = 0
+			user.categories.each {|category| count = count + category.projects.count}
+			if count > 0
 				puts "Sending mail to #{user.email}"
 				DailyMailer.top5(user).deliver
 			else
@@ -54,7 +57,10 @@ class Projects
 	# Send a test mail to me only
 	def self.send_test_update
 		user = User.find_by_email("brian@minicorp.ie")
-		if user.has_updates?
+
+		count = 0
+		user.categories.each {|category| count = count + category.projects.count}
+		if count > 0
 			DailyMailer.top5(user).deliver
 			puts "Sent."
 		else

@@ -7,3 +7,7 @@ end
 task :send_daily_mail => :environment do
   Projects.send_updates
 end
+
+task :send_test_mail => :environment do
+  Projects.send_test_update
+end

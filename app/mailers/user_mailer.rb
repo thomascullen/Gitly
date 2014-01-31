@@ -5,4 +5,11 @@ class UserMailer < ActionMailer::Base
   	@user = user
   	mail(to: @user.email, subject: "Confirm your email address")
   end
+
+  def notify_admin(user, message)
+  	@user = user
+  	@message = message
+
+  	mail(to: "brian@minicorp.ie", subject: "Admin Notification")
+  end
 end

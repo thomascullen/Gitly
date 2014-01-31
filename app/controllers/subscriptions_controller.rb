@@ -12,6 +12,8 @@ class SubscriptionsController < ApplicationController
 				category = Category.find(selected_category_id)
 				@user.subscriptions.create(:category => category, :active => true)
 			end
+
+			UserMailer.notify_admin(@user, "New subscriber: #{@user.email}").deliver
 		end
 
 		send_activation_mail(@user) if !@user.active

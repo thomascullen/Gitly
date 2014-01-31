@@ -2,6 +2,8 @@ require 'open-uri'
 
 class Projects
 	def self.fetch_trending
+		Project.destroy_all
+
 		categories = Category.all
 		categories.each do |category|
 			if category.users.count > 0

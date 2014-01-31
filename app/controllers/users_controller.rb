@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 			@user.verified = true
 			@user.active = true
 			@user.save
+
+			UserMailer.notify_admin(@user, "Validated: #{@user.email}").deliver
 		end
 	end
 
@@ -15,6 +17,8 @@ class UsersController < ApplicationController
 		if @user
 			@user.active = false
 			@user.save
+
+			UserMailer.notify_admin(@user, "Unsubscribed: #{@user.email}").deliver
 		end
 	end
 end

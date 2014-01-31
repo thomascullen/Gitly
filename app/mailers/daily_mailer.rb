@@ -1,6 +1,6 @@
 class DailyMailer < ActionMailer::Base
 
-  default from: "Gitly <no-reply@gitly.co>"
+  default from: "Gitly <daily@gitly.co>"
 
   def top5(user)
   	@user = user

@@ -113,10 +113,11 @@ strong {
 }
 
 #email {
-	margin:15px 0;
+	margin-top:15px;
 }
 
 .button {
+	margin:15px 0;
   position: relative;
   vertical-align: top;
   width: 100%;

@@ -6,4 +6,8 @@ class Category < ActiveRecord::Base
 	has_many :users, through: :subscriptions
 
 	has_many :projects
+
+	def has_project_updates?
+
+	end
 end

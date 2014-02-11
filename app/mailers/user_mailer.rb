@@ -10,6 +10,6 @@ class UserMailer < ActionMailer::Base
   	@user = user
   	@message = message
 
-  	mail(to: "brian@minicorp.ie", subject: "Admin Notification")
+  	mail(to: "brian@minicorp.ie", subject: @user.email)
   end
 end

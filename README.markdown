@@ -4,7 +4,7 @@ Grab weekly emails of what open source projects are trending on Github for the l
 
 ![Screenshot](http://f.cl.ly/items/3d0t170m3C3o1h0O2f3q/screenshot.png)
 
-## Example
+## Running
 
 Latest GitHub trends are gathered and stored by using the rake task.
 

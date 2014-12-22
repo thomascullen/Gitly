@@ -10,6 +10,6 @@ class Languages
 	end
 
 	def self.store_language(language_title)
-		category = Category.find_by_name(language_title) || Category.create(:name => language_title, :github_short => language_title)
+		Category.where(:name => language_title).first_or_create(:name => language_title, :github_short => language_title)
 	end
 end

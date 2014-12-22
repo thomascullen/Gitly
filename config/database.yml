@@ -19,7 +19,7 @@ development:
   encoding: unicode
   database: gitly_development
   pool: 5
-  username: root
+  username: bkenny
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -48,7 +48,7 @@ test:
   encoding: unicode
   database: gitly_test
   pool: 5
-  username: root
+  username: bkenny
   password:
 
 production:
@@ -56,5 +56,5 @@ production:
   encoding: unicode
   database: root
   pool: 5
-  username: gitly
+  username: bkenny
   password:

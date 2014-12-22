@@ -4,6 +4,7 @@
 	<div class="logo">
 		<h1>Gitly</h1>
 		<p class="introduction">Grab weekly emails of what open source projects are <%= link_to 'trending', 'https://github.com/trending', :target => "_blank" %> on Github for the languages you're interested in. <%= link_to "Example of what you'll receive.", "http://c.minicorp.ie/image/182V401v3M2M/o", :target => "_blank" %></p>
+		<p class="introduction" style="margin-top:10px;"><strong><%= number_with_delimiter(Subscription.all.count) %></strong> people are subscribed to Gitly.</p>
 	</div>
 
 	<div class="errors">

@@ -17,6 +17,15 @@
 				<%= options_from_collection_for_select(Category.all, :id, :name) %>
 			</select>
 			<%= text_field_tag :email, "", :placeholder => "Your email address", :class => "selectize-input", :id => "email" %><br />
+
+			<div class="frequency_switch">
+				<label class="switch">
+		      <input type="checkbox" class="switch-input" checked>
+		      <span class="switch-label" data-on="Daily" data-off="Weekly"></span>
+		      <span class="switch-handle"></span>
+		    </label>
+	    </div>
+
 			<%= submit_tag "Subscribe", :class => "button" %>
 		<% end %>
 	</div>

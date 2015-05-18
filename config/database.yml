@@ -54,7 +54,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: root
+  database: gitly_production
   pool: 5
   username: bkenny
   password:

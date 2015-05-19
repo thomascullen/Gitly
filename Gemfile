@@ -35,13 +35,15 @@ end
 # Unicorn
 # http://rubygems.org/gems/unicorn
 # Used for multiple web processes from one heroku dyno
-gem 'unicorn'
+gem 'puma'
 
 gem "selectize-rails"
 
 gem 'httparty'
 
 gem 'friendly_id', '~> 5.0.0'
+
+gem 'clockwork'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

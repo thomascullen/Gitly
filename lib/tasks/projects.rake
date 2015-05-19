@@ -1,15 +1,11 @@
 require 'projects'
 
 task :fetch_trending => :environment do
-	if Time.now.friday?
-  	Projects.fetch_trending
-  end
+	Projects.fetch_trending
 end
 
 task :send_weekly_mail => :environment do
-	if Time.now.friday?
-  	Projects.send_updates
-  end
+	Projects.send_updates  
 end
 
 task :send_test_mail => :environment do

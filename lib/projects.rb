@@ -8,7 +8,7 @@ class Projects
 		categories.each do |category|
 			if category.users.count > 0
 				self.fetch_projects(category)
-				sleep(5.0)
+				sleep(20.0)
 			end
 		end
 	end

@@ -1,31 +1,54 @@
 <% content_for :title, "Weekly emails of trending open source projects on GitHub for your favourite languages" %>
 
+<div class="top-hero">
+	<div class="container inner-hero inverted">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 text-center">
+				<h1>Gitly</h1>
+				<p class="introduction">Grab weekly emails of what open source projects are <%= link_to 'trending', 'https://github.com/trending', :target => "_blank" %> on Github for the languages you're interested in.</p>
+			</div>
+		</div>
+		<div class="row errors">
+			<div class="col-md-8 col-md-offset-2">
+					<div class="alert alert-danger">
+						<p class="text-center" id="error_message">Error</p>
+					</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<%= form_tag subscriptions_path, :method => :post, :id => "new_sub_form" do %>
+					<div class="row">
+
+						<div class="col-md-5 top-margin-sm">
+							<%= text_field_tag :email, "", :placeholder => "Email address", :class => "selectize-input", :id => "email" %><br />
+						</div>
+						<div class="col-md-5 top-margin-sm">
+							<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 100%; display: none;" placeholder="Languages (e.g. Ruby, Objective-C)" tabindex="-1">
+								<%= options_from_collection_for_select(Category.all, :id, :name) %>
+							</select>
+						</div>
+						<div class="col-md-2 top-margin-sm">
+							<%= submit_tag "Join", :class => "btn btn-default btn-block medium" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+		<div class="row top-padding-medium">
+			<div class="col-md-6 col-md-offset-3">
+				<p class="introduction large-text text-center">
+					<strong><%= number_with_delimiter(Subscription.all.count) %></strong> people are subscribed to Gitly.</p>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="container">
-	<div class="logo">
-		<h1>Gitly</h1>
-		<p class="introduction">Grab weekly emails of what open source projects are <%= link_to 'trending', 'https://github.com/trending', :target => "_blank" %> on Github for the languages you're interested in. <%= link_to "Example of what you'll receive.", "http://c.minicorp.ie/image/182V401v3M2M/o", :target => "_blank" %></p>
-		<p class="introduction" style="margin-top:10px;"><strong><%= number_with_delimiter(Subscription.all.count) %></strong> people are subscribed to Gitly.</p>
-	</div>
-
-	<div class="errors">
-		<p id="error_message">Error</p>
-	</div>
-
-	<div id="new_sub">
-		<%= form_tag subscriptions_path, :method => :post, :remote => :false, :id => "new_sub_form" do %>
-			<select id="select-category" name="categories[]" multiple="multiple" class="selectized" style="width: 100%; display: none;" placeholder="What languages are you interested in? (e.g. Ruby, Objective-C)" tabindex="-1">
-				<%= options_from_collection_for_select(Category.all, :id, :name) %>
-			</select>
-			<%= text_field_tag :email, "", :placeholder => "Your email address", :class => "selectize-input", :id => "email" %><br />
-			<%= submit_tag "Subscribe", :class => "button" %>
-		<% end %>
-	</div>
-
 	<div class="promises">
 		<p>We promise never to share your email or details with anyone.</p>
 		<p>Built with love by <a href="http://www.minicorp.co" target="_blank">MiniCorp</a> in Dublin, Ireland.</p>
-		<p style="padding-top:10px;"><iframe src="http://ghbtns.com/github-btn.html?user=bkenny&repo=Gitly&type=fork&count=false"
-  allowtransparency="true" frameborder="0" scrolling="0" width="50" height="20"></iframe></p>
 	</div>
 </div>
 

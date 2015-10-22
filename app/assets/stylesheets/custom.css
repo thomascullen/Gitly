@@ -72,3 +72,7 @@ h1 {
 -moz-border-radius: 3px;
 border-radius: 3px;
 }
+
+.col-md-4 {
+  min-height: 415px;
+}

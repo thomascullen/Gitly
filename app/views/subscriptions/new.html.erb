@@ -50,13 +50,15 @@
 			<div class="row top-padding-medium text-center">
 				<div class="col-md-12">
 					<h2 class="">Trending Languages</h2>
-					<p class="text-muted">A daily list of the top 6 trending languages on GitHub</p>
+					<p class="text-muted">A daily list of the top 30 trending languages on GitHub</p>
 				</div>
 			</div>
 			<div class="row">
-				<% @project_categories.take(6).each do |category, projects| %>
+				<% i = 0 %>
+				<% @project_categories.take(30).each do |category, projects| %>
+					<% i += 1 %>
 					<div class="col-md-4">
-						<h3 class="text-center"><%= category.name %></h3>
+						<h3 class="text-center"><%= i %>. <%= category.name %></h3>
 						<ul class="list-group">
 							<% projects.take(5).each do |project| %>
 								<li class="list-group-item">

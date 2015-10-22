@@ -2,11 +2,14 @@ class SubscriptionsController < ApplicationController
 	def new
 		@categories = Category.all.order('name desc')
 		@user = User.new
+
+		@projects = Project.order('stargazers desc')
+		@project_categories = @projects.group_by { |p| p.category }
 	end
 
 	def create
 		@user = User.find_by_email(params[:email]) || User.create(:email => params[:email], :auth_token => SecureRandom.hex(32))
-		
+
 		if @user
 			@user.subscriptions.destroy_all
 

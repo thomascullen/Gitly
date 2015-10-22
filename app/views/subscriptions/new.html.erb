@@ -5,21 +5,20 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 text-center">
 				<h1>Gitly</h1>
-				<p class="introduction">Grab weekly emails of what open source projects are <%= link_to 'trending', 'https://github.com/trending', :target => "_blank" %> on Github for the languages you're interested in.</p>
+				<p class="introduction">Grab weekly emails of what open source projects are <%= link_to 'trending', 'https://github.com/trending', :target => "_blank" %> on <%= link_to 'GitHub', 'https://github.com', :target => "_blank" %> for the languages you're interested in.</p>
 			</div>
 		</div>
 		<div class="row errors">
 			<div class="col-md-8 col-md-offset-2">
-					<div class="alert alert-danger">
+					<div class="alert alert-info">
 						<p class="text-center" id="error_message">Error</p>
 					</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<%= form_tag subscriptions_path, :method => :post, :id => "new_sub_form" do %>
+				<%= form_tag subscriptions_path, :method => :post, :id => "new_sub_form", :remote => :false do %>
 					<div class="row">
-
 						<div class="col-md-5 top-margin-sm">
 							<%= text_field_tag :email, "", :placeholder => "Email address", :class => "selectize-input", :id => "email" %><br />
 						</div>
@@ -46,9 +45,40 @@
 </div>
 
 <div class="container">
-	<div class="promises">
-		<p>We promise never to share your email or details with anyone.</p>
-		<p>Built with love by <a href="http://www.minicorp.co" target="_blank">MiniCorp</a> in Dublin, Ireland.</p>
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="row top-padding-medium text-center">
+				<div class="col-md-12">
+					<h2 class="">Trending Languages</h2>
+					<p class="text-muted">A daily list of the top 6 trending languages on GitHub</p>
+				</div>
+			</div>
+			<div class="row">
+				<% @project_categories.take(6).each do |category, projects| %>
+					<div class="col-md-4">
+						<h3 class="text-center"><%= category.name %></h3>
+						<ul class="list-group">
+							<% projects.take(5).each do |project| %>
+								<li class="list-group-item">
+									<%= link_to project.name, "http://github.com/#{project.created_by}/#{project.name}", target: "_blank" %>
+									<br/><small><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <%= project.stargazers %> Stars</small>
+								</li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	</div>
+</div>
+
+<div class="container">
+	<div class="row top-padding-medium bottom-margin-large">
+		<div class="col-md-10 col-md-offset-1 text-center">
+			<p>Built with <span class="glyphicon glyphicon-heard" aria-hidden="true"></span> by <a href="http://www.minicorp.ie" target="_blank">MiniCorp</a> in Dublin, Ireland.</p>
+		</div>
 	</div>
 </div>
 

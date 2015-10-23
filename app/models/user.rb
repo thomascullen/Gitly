@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
 	def has_updates?
 		count = 0
-		categories.each {|category| count = count + category.projects.count}
+		categories.each { |category| count = count + category.projects.count }
 		count > 0 ? true : false
 	end
 end

@@ -22,6 +22,11 @@ class SubscriptionsController < ApplicationController
 		end
 
 		send_activation_mail(@user) if !@user.active
+
+		respond_to do |format|
+			format.html { redirect_to root_path }
+			format.js
+		end
 	end
 
 	def edit
@@ -44,9 +49,15 @@ class SubscriptionsController < ApplicationController
 		end
 
 		UserMailer.notify_admin(@user, "Updated subscriber: #{@user.email}").deliver
+
+		respond_to do |format|
+			format.html { redirect_to root_path }
+			format.js
+		end
 	end
 
 	private
+
 	def send_activation_mail(user)
 		logger.warn "Send activation email to #{user.email}"
 		UserMailer.validate_user(user).deliver

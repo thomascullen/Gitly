@@ -1,5 +1,4 @@
 Gitly::Application.routes.draw do
-
   resources :projects
 
   resources :subscriptions

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
@@ -39,7 +39,7 @@ end
 # Used for multiple web processes from one heroku dyno
 gem 'puma'
 
-gem "selectize-rails"
+gem 'selectize-rails'
 
 gem 'httparty'
 
@@ -50,8 +50,9 @@ gem 'clockwork'
 group :test, :development do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'rspec-rails', '~> 3.0'
+  gem 'simplecov'
 end
 
 # Use ActiveModel has_secure_password

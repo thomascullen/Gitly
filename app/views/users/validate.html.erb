@@ -1,10 +1,12 @@
 <% content_for :title, "Validated" %>
-<div class="container">
-	<div class="errors">
-		<% if @user %>
-		<p id="error_message">Thanks, you're all validated and looking fly.</p>
-		<% else %>
-		<p id="error_message">Wah, wah. Sorry, that code doesn't exist</p>
-		<% end %>
+<div class="container top-padding-medium">
+	<div class="row">
+		<div class="col-md-12">
+			<% if @user %>
+				<div class="alert alert-info" role="alert">Thanks, you're all validated and looking fly.</div>
+			<% else %>
+				<div class="alert alert-danger" role="alert">Wah, wah. Sorry, that code doesn't exist</div>
+			<% end %>
+		</div>
 	</div>
 </div>
